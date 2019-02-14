@@ -14,7 +14,7 @@ public class PointSecond {
         this.y1 = y1;
     }
 
-    public  double distance(){
+    public  double distanceSecond(){
         double rez = Math.sqrt(Math.pow((x - x1), 2) + Math.pow((y - y1), 2));
         return rez;
     }
