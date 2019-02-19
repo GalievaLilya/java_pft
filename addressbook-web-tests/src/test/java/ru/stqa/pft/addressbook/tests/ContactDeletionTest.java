@@ -1,15 +1,16 @@
 package ru.stqa.pft.addressbook.tests;
 
-import static org.testng.Assert.*;
-import org.testng.annotations.Test;
-import org.openqa.selenium.WebDriver;
+import org.testng.annotations.*;
 
 public class ContactDeletionTest extends TestBase{
 
-    @Test
-    public void ContactDeletionTest(){
+  @Test
+  public void contactDeletionTest() throws Exception {
+    app.getContactHelper().selectContact();
+    app.getContactHelper().pushDelete();
 
-    }
+  }
+
 
 
 }
