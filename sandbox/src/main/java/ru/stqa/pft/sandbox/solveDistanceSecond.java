@@ -3,11 +3,8 @@ package ru.stqa.pft.sandbox;
 public class solveDistanceSecond {
 
     public static void main(String[] args){
-        PointSecond p = new PointSecond(1,1, 2, 3);
-        System.out.println("Distance from A to B = " + p.distanceSecond());
-
-        PointSecond p1 = new PointSecond(10,5, 25, 10);
-        System.out.println("Distance from C to D = " + p1.distanceSecond());
+        PointSecond p = new PointSecond(6,1);
+        System.out.println("Distance from A to B = " + p.distanceSecond(5,1));
 
     }
 

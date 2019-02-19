@@ -19,4 +19,8 @@ public class NavigationHelper extends HelperBase{
 
         click(By.linkText("add new"));
     }
+
+    public void gotoHomePage(){
+        click(By.xpath("//table[@id='maintable']/tbody/tr/th[2]"));
+    }
 }

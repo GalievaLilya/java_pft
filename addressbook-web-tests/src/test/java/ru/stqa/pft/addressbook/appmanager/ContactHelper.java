@@ -24,4 +24,19 @@ public class ContactHelper extends HelperBase{
     public void saveContact() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
+
+    public void selectContact(){
+        click(By.name("selected[]"));
+    }
+
+    // xpath=(.//*[normalize-space(text()) and normalize-space(.)='Moscow'])[1]/following::img[2]
+    public void editContact(){
+        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/preceding::img[2]"));
+    }
+
+    public void pushUpdate(){
+        click(By.xpath("(//input[@name='update'])[2]"));
+    }
+
+
 }
