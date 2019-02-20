@@ -35,9 +35,8 @@ public class ContactHelper extends HelperBase{
         click(By.name("selected[]"));
     }
 
-    // xpath=(.//*[normalize-space(text()) and normalize-space(.)='Moscow'])[1]/following::img[2]
     public void editContact(){
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/preceding::img[2]"));
+        click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void pushUpdate(){
@@ -46,7 +45,7 @@ public class ContactHelper extends HelperBase{
 
     public void pushDelete(){
         acceptNextAlert = true;
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]"));
+        click(By.xpath("//input[@value='Delete']"));
         assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
     }
     private String closeAlertAndGetItsText() {

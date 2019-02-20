@@ -2,6 +2,9 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import sun.plugin2.util.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +17,7 @@ public class ApplicationManager {
     WebDriver wd;
 
     public void init() {
+       // String browser = BrowserType.FIREFOX;
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost:8080/addressbook/");
