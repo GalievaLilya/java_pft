@@ -22,7 +22,7 @@ public class ContactModificationTest extends TestBase{
             app.getNavigationHelper().gotoAddNewContact();
             app.getContactHelper().createContact(new ContactData("Boris", "Boris1", "Testing", "Bi", "Ya", "Moscow", "13", "1111111111", "test1"), true);
         }
-        app.getContactHelper().selectContact();
+        app.getContactHelper().selectContact(before - 1);
         app.getContactHelper().editContact();
         app.getContactHelper().fillContactData(new ContactData("Boris3456", "34567", "Tes", "Bib", "Ya", "Moscow", "13", "1111111111", null), false);
         app.getContactHelper().pushUpdate();
