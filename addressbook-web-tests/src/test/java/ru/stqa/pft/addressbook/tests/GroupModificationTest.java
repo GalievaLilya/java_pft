@@ -20,17 +20,17 @@ public class GroupModificationTest extends TestBase{
         }
         //int before = app.getGroupHelper().getGroupCount();
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
+        int index = before.size() - 1;
+        app.getGroupHelper().selectGroup(index);
         app.getGroupHelper().initGroupModification();
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(),"test12", "test12", "test12");
+        GroupData group = new GroupData(before.get(index).getId(),"test12", "test12", "test12");
         app.getGroupHelper().filGroupForm(group);
         app.getGroupHelper().submitGroupModification();
         app.getGroupHelper().returnToGroupPage();
-        //int after = app.getGroupHelper().getGroupCount();
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(),  before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(group);
         Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
         before.sort(byId);
