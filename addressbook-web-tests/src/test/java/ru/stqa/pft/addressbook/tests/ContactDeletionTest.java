@@ -3,36 +3,40 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.HashSet;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTest extends TestBase{
 
-  @Test(enabled = false)
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+    if (app.group().all().size() == 0){
+      app.group().create(new GroupData().withName("test1").withHeader("test1").withFooter("test2"));
+    }
+    app.contact().returnToHomepage();
+  }
+
+  @Test
   public void contactDeletionTest() {
-    app.getNavigationHelper().gotoGroupPage();
-    if (! app.getGroupHelper().isThereAGroup()){
-      app.getGroupHelper().createGroup(new GroupData("test1", "test1", "test2"));
+    if (! app.contact().isThereAContact()){
+      app.goTo().AddNewContact();
+      app.contact().create(new ContactData()
+              .withFirstname("Boris").withMiddlename( "Boris1").withLastname("Testing").withNickname("Bi").withCompany("Ya").withAddress("Moscow")
+              .withHome("13").withMobile("1111111111").withGroup("test1"), true);
     }
-
-    app.getContactHelper().returnToHomepage();
-
-    if (! app.getContactHelper().isThereAContact()){
-      app.getNavigationHelper().gotoAddNewContact();
-      app.getContactHelper().createContact(new ContactData("Boris", "Boris1", "Testing", "Bi", "Ya", "Moscow", "13", "1111111111", "test1"), true);
-    }
-   // int before = app.getContactHelper().getContactCount();
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().pushDelete();
-    app.getNavigationHelper().gotoHomePage();
-    //int after = app.getContactHelper().getContactCount();
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(),  before.size() - 1);
-
-    before.remove(before.size() - 1);
-    Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
+    Contacts before = app.contact().all();
+    ContactData deletedContact = before.iterator().next();
+    app.contact().delete(deletedContact);
+    app.goTo().HomePage();
+    Contacts after = app.contact().all();
+    assertEquals(after.size(),  before.size() - 1);
+    assertThat(after, equalTo(before.withOut(deletedContact)));;
   }
 }
