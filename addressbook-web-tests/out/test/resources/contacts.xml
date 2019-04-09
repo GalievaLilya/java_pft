@@ -14,14 +14,4 @@
     <lastname>Lastname 2</lastname>
     <address>address 2</address>
   </contact>
-  <contact>
-    <firstname>firstname 3</firstname>
-    <lastname>Lastname 3</lastname>
-    <address>address 3</address>
-  </contact>
-  <contact>
-    <firstname>firstname 4</firstname>
-    <lastname>Lastname 4</lastname>
-    <address>address 4</address>
-  </contact>
 </list>

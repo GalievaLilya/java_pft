@@ -5,6 +5,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -52,9 +53,9 @@ public class ContactDataGenerator {
         XStream xStream = new XStream();
         xStream.processAnnotations(ContactData.class);
         String xml = xStream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file);){
+            writer.write(xml);
+        }
     }
 
     private List<ContactData> generateContacts(int count) {
@@ -66,10 +67,10 @@ public class ContactDataGenerator {
     }
 
     private void saveAsCsv(List<ContactData> contacts, File file) throws IOException{
-        Writer writer = new FileWriter(file);
-        for (ContactData contact: contacts){
-            //TODO CSV
+        try (Writer writer = new FileWriter(file);){
+            for (ContactData contact: contacts){
+                //TODO CSV
+            }
         }
-        writer.close();
     }
 }

@@ -3,7 +3,6 @@ package generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
-import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.GroupData;
 
@@ -50,21 +49,13 @@ public class GroupDataGenerator {
         }
     }
 
-    private void saveAsJson(List<GroupData> groups, File file) throws IOException {
-        Gson gson = new Gson();
-        String json = gson.toJson(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
-    }
-
     private void saveAsXml(List<GroupData> groups, File file) throws IOException {
         XStream xStream = new XStream();
         xStream.processAnnotations(GroupData.class);
         String xml = xStream.toXML(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file);){
+            writer.write(xml);
+        }
     }
 
     private List<GroupData> generateGroups(int count) {
@@ -76,10 +67,10 @@ public class GroupDataGenerator {
     }
 
     private void saveAsCsv(List<GroupData> groups, File file) throws IOException{
-        Writer writer = new FileWriter(file);
-        for (GroupData group: groups){
-            //TODO CSV
+        try (Writer writer = new FileWriter(file);){
+            for (GroupData group: groups){
+                //TODO CSV
+            }
         }
-        writer.close();
     }
 }
