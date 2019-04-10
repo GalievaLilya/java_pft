@@ -34,7 +34,7 @@ public class ContactHelper extends HelperBase{
 
 
         if (creation) {
-            if (contactData.getGroup() != null){
+            if (contactData.getGroup() != ""){
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
             }
         }else {
@@ -128,8 +128,8 @@ public class ContactHelper extends HelperBase{
             String allPhones = element.findElement(By.xpath("./td[6]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contactCache.add(new ContactData().withId(id)
-                    .withFirstname(firstname).withMiddlename(null).withLastname(lastname).withNickname(null).withCompany(null).withAddress(allAddress)
-                    .withAllPhones(allPhones).withAllEmails(allEmails).withGroup(null));
+                    .withFirstname(firstname).withLastname(lastname).withAddress(allAddress)
+                    .withAllPhones(allPhones).withAllEmails(allEmails));
         }
         return new Contacts(contactCache);
     }

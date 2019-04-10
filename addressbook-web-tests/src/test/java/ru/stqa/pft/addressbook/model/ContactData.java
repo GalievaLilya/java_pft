@@ -1,29 +1,74 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
-    private String firstname;
-    private String middlename;
-    private String lastname;
-    private String nickname;
-    private String company;
-    private String address;
-    private String home;
-    private String mobile;
-    private String work;
-    private String group;
-    private String email;
-    private String email2;
-    private String email3;
-    private String allPhones;
-    private String allEmails;
 
+    @Column(name = "firstname")
+    @Expose
+    private String firstname = "";
+
+    @Column(name = "middlename")
+    private String middlename = "";;
+
+    @Column(name = "lastname")
+    @Expose
+    private String lastname = "";;
+
+    @Column(name = "nickname")
+    private String nickname = "";;
+
+    @Column(name = "company")
+    private String company = "";;
+
+    @Column(name = "address")
+    @Type(type = "text")
+    @Expose
+    private String address = "";;
+
+    @Column(name = "home")
+    @Type(type = "text")
+    private String home = "";;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
+    private String mobile = "";;
+
+    @Column(name = "work")
+    @Type(type = "text")
+    private String work = "";;
+    @Transient
+    private String group = "";;
+
+    @Column(name = "email")
+    @Type(type = "text")
+    private String email = "";;
+
+    @Column(name = "email2")
+    @Type(type = "text")
+    private String email2 = "";;
+
+    @Column(name = "email3")
+    @Type(type = "text")
+    private String email3 = "";;
+    @Transient
+    private String allPhones = "";;
+    @Transient
+    private String allEmails = "";;
 
     public String getAllPhones() {
         return allPhones;
@@ -171,26 +216,46 @@ public class ContactData {
     }
 
     @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
         return id == that.id &&
                 Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname);
+                Objects.equals(middlename, that.middlename) &&
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(nickname, that.nickname) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(home, that.home) &&
+                Objects.equals(mobile, that.mobile) &&
+                Objects.equals(work, that.work) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
+        return Objects.hash(id, firstname, middlename, lastname, nickname, company, address, home, mobile, work, email, email2, email3);
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", home='" + home + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", work='" + work + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                '}';
     }
 }
