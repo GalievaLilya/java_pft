@@ -23,52 +23,52 @@ public class ContactData {
     private String firstname = "";
 
     @Column(name = "middlename")
-    private String middlename = "";;
+    private String middlename = "";
 
     @Column(name = "lastname")
     @Expose
-    private String lastname = "";;
+    private String lastname = "";
 
     @Column(name = "nickname")
-    private String nickname = "";;
+    private String nickname = "";
 
     @Column(name = "company")
-    private String company = "";;
+    private String company = "";
 
     @Column(name = "address")
     @Type(type = "text")
     @Expose
-    private String address = "";;
+    private String address = "";
 
     @Column(name = "home")
     @Type(type = "text")
-    private String home = "";;
+    private String home = "";
 
     @Column(name = "mobile")
     @Type(type = "text")
-    private String mobile = "";;
+    private String mobile = "";
 
     @Column(name = "work")
     @Type(type = "text")
-    private String work = "";;
+    private String work = "";
     @Transient
-    private String group = "";;
+    private String group = "";
 
     @Column(name = "email")
     @Type(type = "text")
-    private String email = "";;
+    private String email = "";
 
     @Column(name = "email2")
     @Type(type = "text")
-    private String email2 = "";;
+    private String email2 = "";
 
     @Column(name = "email3")
     @Type(type = "text")
-    private String email3 = "";;
+    private String email3 = "";
     @Transient
-    private String allPhones = "";;
+    private String allPhones = "";
     @Transient
-    private String allEmails = "";;
+    private String allEmails = "";
 
     public String getAllPhones() {
         return allPhones;
