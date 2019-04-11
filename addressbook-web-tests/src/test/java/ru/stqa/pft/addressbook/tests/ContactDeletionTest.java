@@ -29,7 +29,7 @@ public class ContactDeletionTest extends TestBase{
       app.goTo().AddNewContact();
       app.contact().create(new ContactData()
               .withFirstname("Boris").withMiddlename( "Boris1").withLastname("Testing").withNickname("Bi").withCompany("Ya").withAddress("Moscow")
-              .withHome("13").withMobile("1111111111").withGroup("test1"), true);
+              .withHome("13").withMobile("1111111111"), true);
     }
     Contacts before = app.db().contacts();
     ContactData deletedContact = before.iterator().next();

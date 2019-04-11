@@ -9,6 +9,8 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import java.util.List;
+import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import static org.testng.Assert.assertTrue;
 
@@ -34,8 +36,9 @@ public class ContactHelper extends HelperBase{
 
 
         if (creation) {
-            if (contactData.getGroup() != ""){
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0){
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         }else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -153,5 +156,34 @@ public class ContactHelper extends HelperBase{
 
     private void initContactModificationById(int id) {
         wd.findElement(By.xpath("//tr[.//input[@value='"+id+"']]/td[8]/a")).click();
+    }
+
+    public void chooseGroupForAdding(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    }
+
+    public void chooseGroup(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+
+    public void submitAddingContactToGroup(){
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void submitDeleteAddingContactToGroup(){
+        wd.findElement(By.name("remove")).click();
+    }
+
+
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectById(contact.getId());
+        chooseGroupForAdding(group);
+        submitAddingContactToGroup();
+    }
+
+    public void deleteContactFromGroup(ContactData contact, Groups groups) {
+        chooseGroup(groups.iterator().next());
+        selectById(contact.getId());
+        submitDeleteAddingContactToGroup();
     }
 }

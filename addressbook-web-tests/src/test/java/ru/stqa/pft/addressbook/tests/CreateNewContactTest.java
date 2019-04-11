@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +24,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class CreateNewContactTest extends TestBase{
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1").withHeader("test1").withFooter("test2"));
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContactsXml() throws IOException {
@@ -56,6 +66,8 @@ public class CreateNewContactTest extends TestBase{
 
     @Test(dataProvider = "validContactsJson")
     public void testCreateNewContact(ContactData contact) {
+        Groups group = app.db().groups();
+        contact.inGroup(group.iterator().next());
         Contacts before = app.db().contacts();
         app.goTo().AddNewContact();
        /* ContactData contact = new ContactData()

@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -23,52 +24,55 @@ public class ContactData {
     private String firstname = "";
 
     @Column(name = "middlename")
-    private String middlename = "";
+    private String middlename = "";;
 
     @Column(name = "lastname")
     @Expose
-    private String lastname = "";
+    private String lastname = "";;
 
     @Column(name = "nickname")
-    private String nickname = "";
+    private String nickname = "";;
 
     @Column(name = "company")
-    private String company = "";
+    private String company = "";;
 
     @Column(name = "address")
     @Type(type = "text")
     @Expose
-    private String address = "";
+    private String address = "";;
 
     @Column(name = "home")
     @Type(type = "text")
-    private String home = "";
+    private String home = "";;
 
     @Column(name = "mobile")
     @Type(type = "text")
-    private String mobile = "";
+    private String mobile = "";;
 
     @Column(name = "work")
     @Type(type = "text")
-    private String work = "";
-    @Transient
-    private String group = "";
+    private String work = "";;
 
     @Column(name = "email")
     @Type(type = "text")
-    private String email = "";
+    private String email = "";;
 
     @Column(name = "email2")
     @Type(type = "text")
-    private String email2 = "";
+    private String email2 = "";;
 
     @Column(name = "email3")
     @Type(type = "text")
-    private String email3 = "";
+    private String email3 = "";;
     @Transient
-    private String allPhones = "";
+    private String allPhones = "";;
     @Transient
-    private String allEmails = "";
+    private String allEmails = "";;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public String getAllPhones() {
         return allPhones;
@@ -169,13 +173,6 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
-
-
     public String getFirstname() {
         return firstname;
     }
@@ -200,15 +197,15 @@ public class ContactData {
         return address;
     }
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
     public String getHome() {
         return home;
     }
     public String getMobile() {
         return mobile;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public int getId() {
@@ -257,5 +254,10 @@ public class ContactData {
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
                 '}';
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }
