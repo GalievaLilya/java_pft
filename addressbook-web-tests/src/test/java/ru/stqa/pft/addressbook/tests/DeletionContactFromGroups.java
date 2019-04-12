@@ -6,6 +6,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class DeletionContactFromGroups extends TestBase {
@@ -40,6 +42,10 @@ public class DeletionContactFromGroups extends TestBase {
         contacts = app.db().contacts();
         Groups groupsToDeleteContact = contacts.iterator().next().getGroups();
         app.contact().deleteContactFromGroup(contactToAdd, groupsToDeleteContact);
+		Contacts contactsAfter = app.db().contacts();
+		Groups groupsToDeleteContactAfter = contactsAfter.iterator().next().getGroups();
+		assertThat(groupsToDeleteContactAfter, equalTo(groupsToDeleteContact
+            .without(groupForContactToAdd)));
 
     }
 }
