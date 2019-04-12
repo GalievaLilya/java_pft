@@ -5,49 +5,45 @@ repositories{
 }
 
 dependencies{
-    compile 'org.testng:testng:6.9.10'
+    implementation 'org.testng:testng:6.9.10'
     //compile 'org.seleniumhq.selenium-java:3.14.0'
     //implementation 'org.testng:testng:6.14.3'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'com.beust:jcommander:1.48'
     compile 'com.thoughtworks.xstream:xstream:1.4.8'
-    compile 'com.google.code.gson:gson:2.6.1'
-    compile 'ch.qos.logback:logback-classic:1.1.5'
     compile 'mysql:mysql-connector-java:5.1.38'
     compile 'org.hibernate:hibernate-core:5.4.2.Final'
     compile 'com.google.code.gson:gson:2.6.1'
-
 }
 
-task testGroups(type: Test){
+
+task testGroups(type: Test) {
     useTestNG{
         suites 'src/test/resources/testng-groups.xml'
     }
-    if (project.hasProperty('browser')){
+    if (projects.hasProperty('browser')){
         systemProperty 'browser', "${browser}"
     }
-    if (project.hasProperty('target')){
+    if (projects.hasProperty('target')){
         systemProperty 'target', "${target}"
     }
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'verifyUI', "${target}"
+    if (projects.hasProperty('verifyUI')){
+        systemProperty 'verifyUI', "${verifyUI}"
     }
-
 }
-task testContacts(type: Test){
+
+task testContacts(type: Test) {
     useTestNG{
         suites 'src/test/resources/testng-contacts.xml'
     }
-    if (project.hasProperty('browser')){
+    if (projects.hasProperty('browser')){
         systemProperty 'browser', "${browser}"
     }
-    if (project.hasProperty('target')){
+    if (projects.hasProperty('target')){
         systemProperty 'target', "${target}"
     }
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'verifyUI', "${target}"
+    if (projects.hasProperty('verifyUI')){
+        systemProperty 'verifyUI', "${verifyUI}"
     }
-
-
 }
